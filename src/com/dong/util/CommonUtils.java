@@ -1,9 +1,13 @@
 package com.dong.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ConvertStringArrayList {
+public class CommonUtils {
 
 	public static void main(String[] args) {
 		String str = "1,2,3,4,5";
@@ -12,6 +16,9 @@ public class ConvertStringArrayList {
 		System.out.println(arrayList);
 		str = ArrayListToString(arrayList);
 		System.out.println(str);
+		
+		
+		readFileToConsole("D:/logs/2016-01-08.log");
 	}
 	
 	
@@ -45,7 +52,29 @@ public class ConvertStringArrayList {
 			result = result.substring(0,result.length()-1);
 		}
 		return result;
+	}
+	
+	
+	/**
+	 * Read local file to console
+	 * @param filePath
+	 */
+	public static void readFileToConsole(String filePath){
+		
+		File file = new File(filePath);
+		if(!file.exists()){
+			System.out.println("文件"+file.getAbsolutePath()+"不存在");
+			return;
+		}
+		try {
+			InputStream inputStream = new FileInputStream(file);
+			byte buffer[] = new byte[(int) file.length()];
+			inputStream.read(buffer);
+			System.out.println("result:"+new String(buffer));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
-
+	
 }
